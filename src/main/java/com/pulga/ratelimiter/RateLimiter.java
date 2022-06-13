@@ -23,8 +23,8 @@ public class RateLimiter implements Filter {
         String param = servletRequest.getParameter("API-KEY");
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String path = httpServletRequest.getRequestURI();
-        String ipAddress = httpServletRequest.getRemoteAddr();
+        String path = httpServletRequest.getRequestURI();//used to demonstrate how to get the url path
+        String ipAddress = httpServletRequest.getRemoteAddr();//used to demonstrate how to get the ip address of the client calling this url
         if(param == null){
             httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
             httpServletResponse.getWriter().write("unauthorized");
@@ -45,6 +45,5 @@ public class RateLimiter implements Filter {
             redisTemplate.opsForValue().increment(param);
             filterChain.doFilter(servletRequest, servletResponse);
         }
-
     }
 }
